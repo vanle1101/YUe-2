@@ -417,7 +417,7 @@
     if (job.history_loading) return t('historyLoading');
     if (job.status === 'succeeded' || job.status === 'truncated') return t('musicComplete');
     if (job.status === 'partial_failed') return t('partialComplete');
-    if (job.status === 'failed') return t('generationFailed');
+    if (job.status === 'failed') return job.error?.message || t('generationFailed');
     if (job.status === 'cancelled') return t('cancelled');
     if (job.instrumental_stage === 'planning') return t('instrumentalPlanning');
     if (job.instrumental_stage === 'rendering') return t('instrumentalRendering');

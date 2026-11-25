@@ -712,7 +712,7 @@
     if (language() === 'zh') {
       if (job?.error?.code === 'yue_capacity_timeout') return 'GPU đang bận, lượt cover đã được hoàn lại, vui lòng thử lại sau.';
       if (String(job?.error?.code || '').startsWith('sheetsage_http_')) return 'Phân tích bài gốc thất bại, vui lòng thử tệp âm thanh khác.';
-      return 'Tạo bản cover thất bại, vui lòng thử lại.';
+      return job?.error?.message || 'Tạo bản cover thất bại, vui lòng thử lại.';
     }
     return job?.error?.message || 'Cover generation failed. Your cover opportunity was restored.';
   }
