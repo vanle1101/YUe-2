@@ -17,9 +17,9 @@
       coverUse: 'Cover it', coverUseAria: 'Use this song as the original in Cover and fill in its lyrics',
     },
     zh: {
-      strip: '示例歌曲，点击试听', bar: '正在播放', play: '播放', pause: '暂停', prev: '上一首', next: '下一首',
-      close: '关闭', seek: '进度', use: '同款生成', useAria: '把这首的描述和歌词填入文字生成',
-      coverUse: '翻唱这首', coverUseAria: '把这首歌作为原曲填入翻唱模式，并带上它的歌词',
+      strip: 'Bài hát mẫu, bấm để nghe', bar: 'Đang phát', play: 'Phát', pause: 'Tạm dừng', prev: 'Bài trước', next: 'Bài sau',
+      close: 'Đóng', seek: 'Tua', use: 'Tạo tương tự', useAria: 'Điền mô tả và lời bài này sang Tạo nhạc từ chữ',
+      coverUse: 'Cover bài này', coverUseAria: 'Dùng bài này làm bài gốc ở chế độ Cover kèm lời bài hát',
     },
   };
   const lang = () => ($('languageToggle')?.dataset.language === 'zh' ? 'zh' : 'en');

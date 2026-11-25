@@ -55,30 +55,30 @@
       exampleConfirm: 'This uses “{title}” as the original song and fills in its lyrics. Your current original, lyrics and cover description will be replaced.',
     },
     zh: {
-      textMode: '文字生成音乐', coverMode: '翻唱模式', kicker: 'AI 翻唱工作室',
-      uploadTitle: '把任意歌曲变成你的全新翻唱', uploadIntro: '上传歌曲、识别歌词，再用 Yue2 重塑风格与演唱。',
-      dropTitle: '将歌曲拖到这里', dropHint: '或点击上传 · 支持 MP3、WAV、FLAC、M4A、AAC、OGG · 最大 100 MB', choose: '选择音频', demo: '使用示例歌曲',
-      original: '原始歌曲', ready: '已就绪', replace: '更换', remove: '删除', playOriginal: '播放原曲', pauseOriginal: '暂停原曲',
-      lyrics: '歌词', lyricsHint: '粘贴歌词，或从原曲中识别', recognize: '识别歌词', recognizing: '识别中…',
-      lyricsPlaceholder: '识别完成后歌词会显示在这里，也可以直接填写。',
-      description: '翻唱描述', descriptionHint: '描述新的氛围和编曲',
-      descriptionPlaceholder: '温暖的独立流行，亲密女声，柔和木吉他与轻鼓点。',
-      voice: '人声', auto: '自动', female: '女声', male: '男声', style: '风格', customStyle: '补充自定义风格',
-      melody: '旋律参考强度', close: '贴合', closeHint: '保留旋律与结构', free: '自由', freeHint: '仅保留主旋律',
-      privacy: '上传文件仅用于生成本次翻唱。', generate: '生成翻唱', generating: '正在生成翻唱…',
-      remaining: '剩余 {count} 次', getMore: '获取更多', goNoiz: '前往 noiz music',
-      invalidFile: '请选择 MP3、WAV、FLAC、M4A、AAC 或 OGG 文件。', tooLarge: '音频文件不能超过 100 MB。',
-      uploading: '正在上传音频…', uploadFailed: '音频上传失败，请重试。',
-      uploadFirst: '请先上传音频文件。', lyricsRequired: '请填写或识别歌词。', styleRequired: '请填写翻唱描述或选择风格。',
-      lyricsLimit: '三次歌词识别机会已用完。', coverLimit: 'Create 和 Cover 共用的三次生成机会已用完。',
-      recognitionDone: '歌词识别完成，生成前仍可编辑。', recognitionFailed: '歌词识别失败，请重试。',
-      preparing: '正在准备原始歌曲…', score: '正在提取旋律与结构…', submit: '正在将编曲交给 Yue2…', waiting: 'GPU 正忙，正在等待空闲容量…', render: '正在渲染两版翻唱…',
-      complete: '翻唱生成完成', coverTitle: '你的全新翻唱', download: '下载版本 {index}', play: '播放版本 {index}', pause: '暂停版本 {index}',
-      resultLyrics: '歌词', demoName: '午夜示例.wav', mockOnly: '本地预览使用示例音频，不消耗正式额度。',
-      missingSource: '原曲已过期或不可用', missingSourceHint: '请重新上传原曲后继续编辑本次翻唱。', uploadOriginal: '上传原曲',
-      exampleLoading: '正在载入「{title}」作为原曲…', exampleLoadFailed: '示例歌曲载入失败，请重试。',
-      exampleFilled: '已载入「{title}」和歌词，描述一下你想要的新风格',
-      exampleConfirm: '将用「{title}」作为原曲并填入它的歌词，当前的原曲、歌词和翻唱描述会被替换。',
+      textMode: 'Tạo nhạc từ chữ', coverMode: 'Chế độ Cover', kicker: 'Studio Cover AI',
+      uploadTitle: 'Biến bất kỳ bài hát nào thành bản cover mới', uploadIntro: 'Tải bài hát lên, tách lời tự động và phối lại phong cách bằng Yue2.',
+      dropTitle: 'Kéo thả bài hát vào đây', dropHint: 'hoặc bấm để tải lên · Hỗ trợ MP3, WAV, FLAC, M4A, AAC, OGG · Tối đa 100 MB', choose: 'Chọn tệp âm thanh', demo: 'Dùng bài mẫu',
+      original: 'Bài gốc', ready: 'Sẵn sàng', replace: 'Đổi bài', remove: 'Xóa', playOriginal: 'Phát bài gốc', pauseOriginal: 'Tạm dừng bài gốc',
+      lyrics: 'Lời bài hát', lyricsHint: 'Dán lời hoặc bóc lời từ bài gốc', recognize: 'Nhận diện lời', recognizing: 'Đang nhận diện…',
+      lyricsPlaceholder: 'Lời nhận diện sẽ hiện ở đây, hoặc bạn có thể nhập trực tiếp.',
+      description: 'Mô tả bản cover', descriptionHint: 'Mô tả không khí và cách phối mới',
+      descriptionPlaceholder: 'Indie pop ấm áp, giọng nữ gần gũi, guitar mộc nhẹ và trống êm.',
+      voice: 'Giọng hát', auto: 'Tự động', female: 'Nữ', male: 'Nam', style: 'Thể loại', customStyle: 'Thêm thể loại tùy chỉnh',
+      melody: 'Độ bám giai điệu', close: 'Sát bản gốc', closeHint: 'Giữ giai điệu & cấu trúc', free: 'Tự do', freeHint: 'Chỉ giữ giai điệu chính',
+      privacy: 'Tệp tải lên chỉ dùng cho bản cover này.', generate: 'Tạo bản cover', generating: 'Đang tạo bản cover…',
+      remaining: 'Còn {count} lượt', getMore: 'Nhận thêm lượt', goNoiz: 'Mở noiz music',
+      invalidFile: 'Vui lòng chọn tệp MP3, WAV, FLAC, M4A, AAC hoặc OGG.', tooLarge: 'Tệp âm thanh phải nhỏ hơn 100 MB.',
+      uploading: 'Đang tải âm thanh lên…', uploadFailed: 'Tải âm thanh thất bại, thử lại nhé.',
+      uploadFirst: 'Vui lòng tải tệp âm thanh lên trước.', lyricsRequired: 'Vui lòng nhập hoặc nhận diện lời bài hát.', styleRequired: 'Vui lòng nhập mô tả hoặc chọn thể loại.',
+      lyricsLimit: 'Đã hết 3 lượt nhận diện lời.', coverLimit: 'Đã hết 3 lượt dùng thử chung cho Create và Cover.',
+      recognitionDone: 'Đã nhận diện xong lời, bạn có thể sửa lại trước khi tạo.', recognitionFailed: 'Nhận diện lời thất bại, thử lại nhé.',
+      preparing: 'Đang chuẩn bị bài gốc…', score: 'Đang phân tích giai điệu & cấu trúc…', submit: 'Đang gửi bản phối tới Yue2…', waiting: 'GPU đang bận, đang chờ lượt trống…', render: 'Đang render hai bản cover…',
+      complete: 'Bản cover đã sẵn sàng', coverTitle: 'Bản cover mới của bạn', download: 'Tải bản {index}', play: 'Phát bản {index}', pause: 'Tạm dừng bản {index}',
+      resultLyrics: 'Lời bài hát', demoName: 'midnight-demo.wav', mockOnly: 'Chế độ xem thử local, không trừ lượt dùng.',
+      missingSource: 'Bài gốc đã hết hạn hoặc không khả dụng', missingSourceHint: 'Hãy tải lại bài gốc để tiếp tục chỉnh sửa bản cover này.', uploadOriginal: 'Tải bài gốc',
+      exampleLoading: 'Đang nạp "{title}" làm bài gốc…', exampleLoadFailed: 'Không nạp được bài mẫu, thử lại nhé.',
+      exampleFilled: 'Đã nạp "{title}" và lời, hãy mô tả phong cách bạn muốn',
+      exampleConfirm: 'Thao tác này sẽ dùng "{title}" làm bài gốc và điền lời bài hát. Bài gốc, lời và mô tả cover hiện tại sẽ bị thay thế.',
     },
   };
 
@@ -500,7 +500,7 @@
       if (mockMode) {
         await new Promise(resolve => setTimeout(resolve, 900));
         lyrics = language() === 'zh'
-          ? '[主歌]\n午夜霓虹落在旧唱片上\n一段旋律绕过安静街巷\n\n[副歌]\n换一种声音 再唱一遍月光\n让熟悉的歌 有崭新的模样'
+          ? '[Verse]\nÁnh đèn đêm rơi trên đĩa nhạc cũ\nMột giai điệu quen vang qua con phố nhỏ\n\n[Chorus]\nHát lại bằng một giọng mới, dưới ánh trăng\nBiến khúc ca xưa thành điều mới mẻ hôm nay'
           : '[Verse]\nMidnight neon falls across an old refrain\nA familiar melody is calling out my name\n\n[Chorus]\nSing it in a new voice, let the moonlight start again\nTurn the song we used to know into something new today';
         remaining = Math.max(0, MAX_USES - state.lyricsUsed - 1);
       } else {
@@ -509,7 +509,7 @@
           headers: { 'Content-Type': 'application/json', 'Idempotency-Key': `lyrics-${Date.now()}-${crypto.randomUUID()}` },
           body: JSON.stringify({ source_id: state.sourceId }),
         });
-        if (!result.has_vocals || !result.lyrics) throw new Error(language() === 'zh' ? '未检测到可识别的人声歌词。' : 'No recognizable vocal lyrics were found.');
+        if (!result.has_vocals || !result.lyrics) throw new Error(language() === 'zh' ? 'Không phát hiện được lời hát rõ ràng.' : 'No recognizable vocal lyrics were found.');
         lyrics = result.lyrics;
         remaining = result.remaining;
       }
@@ -714,9 +714,9 @@
 
   function coverFailureMessage(job) {
     if (language() === 'zh') {
-      if (job?.error?.code === 'yue_capacity_timeout') return 'GPU 持续繁忙，本次翻唱机会已退还，请稍后重试。';
-      if (String(job?.error?.code || '').startsWith('sheetsage_http_')) return '原曲分析失败，本次翻唱机会已退还，请更换音频后重试。';
-      return '翻唱生成失败，本次机会已退还，请重试。';
+      if (job?.error?.code === 'yue_capacity_timeout') return 'GPU đang bận, lượt cover đã được hoàn lại, vui lòng thử lại sau.';
+      if (String(job?.error?.code || '').startsWith('sheetsage_http_')) return 'Phân tích bài gốc thất bại, vui lòng thử tệp âm thanh khác.';
+      return 'Tạo bản cover thất bại, vui lòng thử lại.';
     }
     return job?.error?.message || 'Cover generation failed. Your cover opportunity was restored.';
   }

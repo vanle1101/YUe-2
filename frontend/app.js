@@ -79,42 +79,42 @@
       ],
     },
     zh: {
-      exploreMore: '探索更多', developerApi: '开发者 API', queue: '点击进入noiz music，免排队', backHome: '返回主页', history: '生成历史',
-      expandComposer: '展开输入框', continueCreate: '继续创作下一首歌', composingCompact: '正在为你谱曲…',
-      promptTitle: '歌曲描述', promptHint: '主题、场景与表达',
-      promptPlaceholder: '一首赛博朋克风格的合成器流行，BPM 120，节奏强劲，女声演唱。',
-      lyrics: '歌词', lyricsHint: '粘贴或直接撰写',
-      lyricsPlaceholder: '[主歌]\n晚风吹过无人的街角\n影子在路灯下被拉长\n\n[副歌]\n就算世界偶尔让人失望\n也要保留心底那束微光',
-      voice: '人声类型', voiceAuto: '默认', voiceAutoChip: '默认人声', voiceFemale: '女声', voiceMale: '男声', style: '风格',
-      instrumental: '纯音乐', instrumentalOn: '纯音乐已开启', instrumentalHint: '只有器乐，没有人声',
-      instrumentalPlaceholder: '温暖的钢琴独奏配轻柔弦乐，沉静舒缓。',
-      instrumentalPlanning: '正在构思乐谱与乐器编排…', instrumentalRendering: '正在渲染两个纯音乐版本…', instrumentalPanel: '纯音乐 · 无歌词',
-      generate: '立即生成', getMore: '获取更多', remaining: '剩余 {count} 次', goNoiz: '前往 noiz music', submitting: '正在提交…',
-      generateAria: '立即生成，剩余 {count} 次', getMoreAria: '获取更多，前往 noiz music',
-      footer: '免费使用，无尽探索', wechat: '微信', wechatQr: '微信二维码', discord: 'Discord', customStyle: '自定义风格…',
-      chooseVoice: '选择人声类型', chooseStyle: '选择风格', close: '关闭',
-      historySubtitle: '与当前浏览器关联', noHistory: '暂无记录，生成一首试试吧。', coverHistory: '翻唱',
-      untitled: '未命名歌曲', completed: '已完成', failed: '失败', generating: '生成中',
-      historyLoading: '正在加载历史音频…', musicComplete: '音乐生成完成', partialComplete: '部分版本生成完成',
-      generationFailed: '生成失败，请稍后重试', cancelled: '生成已取消', newSong: '新歌曲', vocalChip: '人声',
-      audioLoading: '版本 {index} 音频加载中', versionFailed: '版本 {index} 生成失败', versionGenerating: '版本 {index} 生成中',
-      downloadVersion: '下载版本 {index}', waveformProgress: '版本 {index} 播放进度',
-      audioLoadFailed: '音频加载失败', loading: '音频加载中', pause: '暂停', play: '播放', loadFailed: '加载失败',
-      audioPlayError: '音频暂时无法播放，请稍后重试', copyLyrics: '复制歌词',
-      lyricsFallback: '歌词将在这里显示', copied: '歌词已复制', copyFailed: '复制失败，请手动选择歌词',
-      promptRequired: '请填写歌曲描述', lyricsRequired: '请填写歌词', requestFailed: '请求失败，请稍后重试',
-      mockNotice: '当前为样式预览模式，不消耗体验次数', switchLanguage: 'Switch to English',
-      networkLimit: '当前网络已达到今日安全限制', browserLimit: '当前浏览器 Create 和 Cover 共用的三次生成机会已用完',
-      exampleFilled: '已填入「{title}」，可直接生成或继续修改',
-      fillConfirmTitle: '替换当前内容？', fillConfirmCancel: '取消', fillConfirmOk: '替换',
-      fillConfirmText: '将填入「{title}」的描述和歌词，并清空已选的人声和风格，输入框里现有的内容会被覆盖。',
-      styles: { '流行': '流行', '轻松': '轻松', '动感': '动感', '情绪': '情绪', '摇滚': '摇滚', '电子': '电子', '嘻哈': '嘻哈', 'Lo-Fi': 'Lo-Fi', '影视配乐': '影视配乐', '爵士': '爵士', '古典': '古典', '氛围': '氛围' },
+      exploreMore: 'Khám phá thêm', developerApi: 'Developer API', queue: 'Mở noiz music — bỏ qua hàng đợi', backHome: 'Quay lại', history: 'Lịch sử',
+      expandComposer: 'Mở rộng khung nhập', continueCreate: 'Tiếp tục tạo bài hát mới', composingCompact: 'Đang phối nhạc cho bạn…',
+      promptTitle: 'Mô tả bài hát', promptHint: 'Chủ đề, không khí & cảm xúc',
+      promptPlaceholder: 'Một bản synth-pop cyberpunk 120 BPM, nhịp trống chắc, giọng nữ hát.',
+      lyrics: 'Lời bài hát', lyricsHint: 'Dán hoặc tự viết lời',
+      lyricsPlaceholder: '[Verse]\nGió đêm lướt qua góc phố vắng\nBóng đèn đường trải dài trên mặt sân\n\n[Chorus]\nDù thế giới đôi lúc khiến ta mỏi mệt\nVẫn giữ lại tia sáng nhỏ trong tim',
+      voice: 'Giọng hát', voiceAuto: 'Mặc định', voiceAutoChip: 'Giọng mặc định', voiceFemale: 'Giọng nữ', voiceMale: 'Giọng nam', style: 'Thể loại',
+      instrumental: 'Không lời', instrumentalOn: 'Đang bật Không lời', instrumentalHint: 'Chỉ có nhạc cụ, không giọng hát',
+      instrumentalPlaceholder: 'Độc tấu piano ấm áp kết hợp dàn dây nhẹ nhàng, êm dịu.',
+      instrumentalPlanning: 'Đang lên bố cục và phối khí…', instrumentalRendering: 'Đang render hai phiên bản không lời…', instrumentalPanel: 'Không lời · Nhạc cụ',
+      generate: 'Tạo nhạc', getMore: 'Nhận thêm lượt', remaining: 'Còn {count} lượt', goNoiz: 'Mở noiz music', submitting: 'Đang gửi…',
+      generateAria: 'Tạo nhạc ngay, còn {count} lượt', getMoreAria: 'Nhận thêm trên noiz music',
+      footer: 'Dùng miễn phí, khám phá vô tận', wechat: 'WeChat', wechatQr: 'Mã QR WeChat', discord: 'Discord', customStyle: 'Thể loại tùy chỉnh…',
+      chooseVoice: 'Chọn loại giọng', chooseStyle: 'Chọn thể loại', close: 'Đóng',
+      historySubtitle: 'Lưu trên trình duyệt này', noHistory: 'Chưa có bài nào. Tạo thử một bài nhé.', coverHistory: 'Cover',
+      untitled: 'Bài chưa đặt tên', completed: 'Hoàn tất', failed: 'Thất bại', generating: 'Đang tạo',
+      historyLoading: 'Đang tải âm thanh lịch sử…', musicComplete: 'Tạo nhạc hoàn tất', partialComplete: 'Hoàn tất một phần',
+      generationFailed: 'Tạo nhạc thất bại, vui lòng thử lại', cancelled: 'Đã hủy tạo', newSong: 'Bài hát mới', vocalChip: 'Có lời',
+      audioLoading: 'Đang tải âm thanh bản {index}', versionFailed: 'Bản {index} thất bại', versionGenerating: 'Đang tạo bản {index}',
+      downloadVersion: 'Tải bản {index}', waveformProgress: 'Tiến độ phát bản {index}',
+      audioLoadFailed: 'Không tải được âm thanh', loading: 'Đang tải âm thanh', pause: 'Tạm dừng', play: 'Phát', loadFailed: 'Tải thất bại',
+      audioPlayError: 'Không phát được âm thanh lúc này, thử lại sau', copyLyrics: 'Sao chép lời',
+      lyricsFallback: 'Lời bài hát sẽ hiện ở đây', copied: 'Đã sao chép lời', copyFailed: 'Sao chép thất bại, hãy bôi đen thủ công',
+      promptRequired: 'Vui lòng nhập mô tả bài hát', lyricsRequired: 'Vui lòng nhập lời bài hát', requestFailed: 'Yêu cầu thất bại, thử lại sau',
+      mockNotice: 'Đang ở chế độ xem thử, không trừ lượt dùng', switchLanguage: 'Switch to English',
+      networkLimit: 'Mạng hiện tại đã đạt giới hạn an toàn trong ngày', browserLimit: 'Trình duyệt đã hết 3 lượt dùng thử chung cho Create và Cover',
+      exampleFilled: 'Đã điền "{title}", bấm Tạo nhạc hoặc chỉnh sửa thêm',
+      fillConfirmTitle: 'Thay nội dung hiện tại?', fillConfirmCancel: 'Hủy', fillConfirmOk: 'Thay thế',
+      fillConfirmText: 'Thao tác này sẽ điền mô tả và lời của "{title}", đồng thời xóa giọng hát và thể loại đang chọn.',
+      styles: { '流行': 'Pop', '轻松': 'Chill', '动感': 'Sôi động', '情绪': 'Sâu lắng', '摇滚': 'Rock', '电子': 'Electronic', '嘻哈': 'Hip-hop', 'Lo-Fi': 'Lo-Fi', '影视配乐': 'Nhạc phim', '爵士': 'Jazz', '古典': 'Cổ điển', '氛围': 'Ambient' },
       tips: [
-        '正在理解你的灵感，提取情绪、风格和结构…',
-        '正在构建主旋律，让曲目逐渐成形…',
-        '正在编排乐器层次，丰富整体氛围…',
-        '正在渲染音频细节，生成可试听的版本…',
-        '生成时间稍久，我们仍在处理；完成后也可在历史记录查看。',
+        'Đang phân tích ý tưởng, bóc tách cảm xúc, thể loại và cấu trúc…',
+        'Đang dựng giai điệu chính cho bài hát…',
+        'Đang phối thêm lớp nhạc cụ và không gian âm thanh…',
+        'Đang render chi tiết âm thanh để bạn nghe thử…',
+        'Quá trình hơi lâu một chút, hệ thống vẫn đang xử lý; xong sẽ lưu vào Lịch sử.',
       ],
     },
   };
@@ -165,7 +165,7 @@
   }
 
   function applyLanguage({ rerender = true } = {}) {
-    document.documentElement.lang = state.language === 'zh' ? 'zh-CN' : 'en';
+    document.documentElement.lang = state.language === 'zh' ? 'vi' : 'en';
     const texts = {
       exploreText: 'exploreMore', developerApiText: 'developerApi', queueText: 'queue', backLabel: 'backHome', historyLabel: 'history',
       promptTitle: 'promptTitle', promptHint: 'promptHint', lyricsFieldTitle: 'lyrics', lyricsHint: 'lyricsHint',
@@ -985,7 +985,7 @@
         ? record.request?.music_description || record.request?.style || t('coverHistory')
         : record.prompt || t('untitled');
       const title = element('strong', '', isCover ? `${t('coverHistory')} · ${titleText}` : titleText);
-      const time = element('small', '', new Date(historyTimestamp(record)).toLocaleString(state.language === 'zh' ? 'zh-CN' : 'en-US', { hour12: false }));
+      const time = element('small', '', new Date(historyTimestamp(record)).toLocaleString(state.language === 'zh' ? 'vi-VN' : 'en-US', { hour12: false }));
       const done = isCover ? record.status === 'completed' : ['succeeded', 'truncated', 'partial_failed'].includes(record.status);
       const failed = ['failed', 'cancelled'].includes(record.status);
       const badge = element('span', `history-state${done ? ' done' : failed ? ' failed' : ''}`, done ? t('completed') : failed ? t('failed') : t('generating'));
