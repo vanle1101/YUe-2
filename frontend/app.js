@@ -5,7 +5,7 @@
   const HISTORY_KEY = 'meet-yue2-history-v1';
   const PENDING_KEY = 'meet-yue2-pending-v1';
   const LANGUAGE_KEY = 'meet-yue2-language-v1';
-  const MAX_USES = 3;
+  const MAX_USES = 999999;
   const params = new URLSearchParams(location.search);
   const mockMode = params.get('mock') === '1';
   const terminal = new Set(['succeeded', 'truncated', 'partial_failed', 'failed', 'cancelled']);
@@ -35,7 +35,7 @@
     visibleJobIds: new Set(),
     visibleJobs: new Map(),
     analyticsTerminalJobs: new Set(),
-    language: localStorage.getItem(LANGUAGE_KEY) === 'zh' ? 'zh' : 'en',
+    language: localStorage.getItem(LANGUAGE_KEY) === 'en' ? 'en' : 'zh',
   };
 
   const copy = {
@@ -142,7 +142,7 @@
     if (message === copy.en.browserLimit) return t('browserLimit');
     if (/^Please wait \d+ seconds before trying again$/.test(message)) {
       const seconds = message.match(/\d+/)?.[0] || '15';
-      return `请等待 ${seconds} 秒后再试`;
+      return `Vui lòng đợi ${seconds} giây rồi thử lại`;
     }
     return message;
   }
@@ -185,7 +185,7 @@
     $('fillConfirmTitle').textContent = t('fillConfirmTitle');
     $('fillConfirmCancel').textContent = t('fillConfirmCancel');
     $('fillConfirmOk').textContent = t('fillConfirmOk');
-    $('queueLink').setAttribute('aria-label', t('queue'));
+    $('queueLink')?.setAttribute('aria-label', t('queue'));
     $('backButton').setAttribute('aria-label', t('backHome'));
     $('collapsedComposer').setAttribute('aria-label', t('expandComposer'));
     $('voicePicker').setAttribute('aria-label', t('chooseVoice'));
@@ -282,7 +282,7 @@
         ? 'male lead vocal'
         : state.voice === 'auto' ? 'lead vocal' : '';
     const custom = $('customStyle').value.trim();
-    const selected = [...state.styles, ...(custom ? [custom] : [])];
+    const selected = [...state.styles.map(value => copy.en.styles[value] || value), ...(custom ? [custom] : [])];
     return {
       n: 2,
       style: [prompt, ...selected, vocal].filter(Boolean).join(', '),
@@ -754,7 +754,7 @@
   function showResults() {
     state.forceHome = false;
     $('resultsStack').classList.remove('is-hidden');
-    $('queueLink').classList.remove('is-hidden');
+    $('queueLink')?.classList.remove('is-hidden');
     $('backButton').classList.remove('is-hidden');
     document.body.classList.add('has-results');
     state.lastConversationScrollTop = $('resultsStack').scrollTop;
@@ -883,12 +883,6 @@
   }
 
   async function submit() {
-    if (state.used >= MAX_USES) {
-      track('quota_exhausted', { status: 'blocked', properties: { limit_type: 'text_lifetime', remaining: 0 } });
-      window.yueAnalytics?.trackOutbound('quota_redirect_text', 'noiz.ai', 'text');
-      location.href = window.yueAnalytics?.outboundUrl('quota_redirect_text') || 'https://noiz.ai/create/music';
-      return;
-    }
     let payload;
     try { payload = buildPayload(); } catch (error) { toast(error.message); return; }
     const input = {
@@ -1040,7 +1034,7 @@
     state.forceHome = true;
     resetDisplayedResults();
     $('resultsStack').classList.add('is-hidden');
-    $('queueLink').classList.add('is-hidden');
+    $('queueLink')?.classList.add('is-hidden');
     $('backButton').classList.add('is-hidden');
     document.body.classList.remove('has-results');
     setComposerCollapsed(false);
@@ -1225,6 +1219,28 @@
     updateRemaining();
   });
   void window.yueGenerationQuota.refresh();
+
+  async function pollRuntimeStatus() {
+    const badge = $('runtimeStatus');
+    if (!badge || mockMode) return;
+    try {
+      const response = await fetch('/console/status', { credentials: 'same-origin', cache: 'no-store' });
+      if (response.status === 404) return;
+      const data = await response.json();
+      const rt = data.runtime || {};
+      const parts = [data.available ? (state.language === 'zh' ? 'Sẵn sàng' : 'Ready') : (state.language === 'zh' ? 'Đang nạp' : 'Loading'), rt.backend, rt.device ? String(rt.device).toUpperCase() : ''].filter(Boolean);
+      badge.textContent = parts.join(' · ');
+      badge.dataset.state = data.available ? 'ready' : 'loading';
+      badge.title = data.message || '';
+      badge.classList.remove('is-hidden');
+    } catch {
+      badge.textContent = state.language === 'zh' ? 'Ngoại tuyến' : 'Offline';
+      badge.dataset.state = 'offline';
+      badge.classList.remove('is-hidden');
+    }
+    setTimeout(pollRuntimeStatus, 8000);
+  }
+  void pollRuntimeStatus();
 
   window.yueComposer = { fill: fillExample, confirmReplace, goHome };
 

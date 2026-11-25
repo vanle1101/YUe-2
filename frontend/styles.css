@@ -31,10 +31,16 @@ button { color: inherit; }
 .language-toggle[data-language="zh"] .lang-zh,
 .language-toggle[data-language="en"] .lang-en { color: #242326; background: #f1f1f3; }
 .language-toggle:hover { border-color: #c6c5cb; }
+.runtime-pill { height: 32px; padding: 0 12px; display: inline-flex; align-items: center; gap: 7px; border: 1px solid #dedde2; border-radius: 999px; background: #fff; color: #56515f; font-size: 12px; font-weight: 600; white-space: nowrap; box-shadow: 0 4px 14px rgba(25,25,30,.035); }
+.runtime-pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #f59e0b; flex: 0 0 auto; }
+.runtime-pill[data-state="ready"]::before { background: #10b981; }
+.runtime-pill[data-state="offline"]::before { background: #ef4444; }
+.runtime-pill.is-hidden { display: none; }
 .headline-row { display: flex; align-items: center; gap: 12px; }
 .brand { display: inline-flex; align-items: center; line-height: 0; text-decoration: none; }
 .brand img { height: 36px; width: auto; display: block; }
 .brand .noiz-mark { height: 15px; }
+.brand .nomoney-mark { height: 18px; transform: translateY(1.5px); }
 .brand-x { margin: 0 2px 0 10px; color: #8a8890; font-size: 18px; line-height: 1; }
 .brand:hover { opacity: .72; }
 .explore { width: max-content; height: 34px; padding: 0 16px 0 13px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; color: #765719; text-decoration: none; border: 1px solid transparent; border-radius: 999px; background: linear-gradient(105deg, rgba(255,210,85,.08), rgba(199,66,4,.07)) padding-box, linear-gradient(105deg, #fff6dd, #ffece5) border-box; font-size: 14px; font-weight: 650; white-space: nowrap; transition: transform .18s ease, box-shadow .18s ease; }

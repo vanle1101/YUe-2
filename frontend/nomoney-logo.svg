@@ -1,0 +1,31 @@
+<svg width="540" height="90" viewBox="0 0 540 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Equalizer-bar 'N' matching NOIZ 4-row palette -->
+  <rect x="0" y="0" width="20" height="15" fill="#FFAFAB"/>
+  <rect x="0" y="19.5" width="20" height="15" fill="#FF9791"/>
+  <rect x="0" y="39" width="20" height="15" fill="#FE7E77"/>
+  <rect x="0" y="58.5" width="20" height="15" fill="#FE655D"/>
+  <rect x="23" y="19.5" width="20" height="15" fill="#FF9791"/>
+  <rect x="45" y="39" width="20" height="15" fill="#FE7E77"/>
+  <rect x="68" y="0" width="20" height="15" fill="#FFAFAB"/>
+  <rect x="68" y="19.5" width="20" height="15" fill="#FF9791"/>
+  <rect x="68" y="39" width="20" height="15" fill="#FE7E77"/>
+  <rect x="68" y="58.5" width="20" height="15" fill="#FE655D"/>
+
+  <!-- Geometric 'o' (x=102..162, y=20..74) -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M132 20A30 27 0 1 1 131.99 20ZM132 33.5A16 13.5 0 1 0 132.01 33.5Z" fill="#FE655D"/>
+
+  <!-- Geometric 'M' (x=178..264, y=0..74) -->
+  <path d="M178 0H198L221 38L244 0H264V74H248V24L226 64H216L194 24V74H178V0Z" fill="#FE655D"/>
+
+  <!-- Geometric 'o' (x=278..338, y=20..74) -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M308 20A30 27 0 1 1 307.99 20ZM308 33.5A16 13.5 0 1 0 308.01 33.5Z" fill="#FE655D"/>
+
+  <!-- Geometric 'n' (x=352..406, y=20..74) -->
+  <path d="M352 21H365V27C370 21 377 19.5 384 19.5C397 19.5 406 28 406 42V74H392V44C392 36 387 33 379 33C371 33 366 37 366 45V74H352V21Z" fill="#FE655D"/>
+
+  <!-- Geometric 'e' (x=419..475, y=20..74) -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M475 51H433.5A14.5 13.5 0 0 0 460 56L471.5 60A28 27 0 1 1 475 47V51ZM433.5 40H460.5C459.5 34.5 454 31 447 31C440 31 434.5 34.5 433.5 40Z" fill="#FE655D"/>
+
+  <!-- Geometric 'y' (x=486..540, y=21..90) -->
+  <path d="M486 21H501L514 51L525 21H540L511 90H495L506 65L486 21Z" fill="#FE655D"/>
+</svg>

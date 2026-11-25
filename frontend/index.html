@@ -12,7 +12,8 @@
     <div class="page-shell">
       <header class="page-header">
         <div class="header-utilities">
-          <button id="languageToggle" class="language-toggle" type="button" data-language="en" aria-label="Switch to Vietnamese">
+          <span id="runtimeStatus" class="runtime-pill is-hidden" aria-live="polite"></span>
+          <button id="languageToggle" class="language-toggle" type="button" data-language="zh" aria-label="Switch to English">
             <span class="lang-zh">VI</span><i aria-hidden="true"></i><span class="lang-en">EN</span>
           </button>
           <button id="historyButton" class="history-button" type="button">
@@ -21,7 +22,7 @@
           </button>
         </div>
         <div class="headline-row">
-          <a class="brand" href="./" aria-label="VAN LE × YuE2"><img class="noiz-mark" src="./vanle-logo.svg?v=3" alt="VAN LE" width="484" height="90" /><span class="brand-x" aria-hidden="true">×</span><img class="yue2-mark" src="./brand-logo.png?v=20260922-yue2-b" alt="YuE2" width="2100" height="749" /></a>
+          <a class="brand" href="./" aria-label="NoMoney × YuE2"><img class="noiz-mark nomoney-mark" src="./nomoney-logo.svg?v=1" alt="NoMoney" width="540" height="90" /><span class="brand-x" aria-hidden="true">×</span><img class="yue2-mark" src="./brand-logo.png?v=20260922-yue2-b" alt="YuE2" width="2100" height="749" /></a>
         </div>
       </header>
 
@@ -47,10 +48,6 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg>
             <span id="backLabel">Back</span>
           </button>
-          <a id="queueLink" class="queue-link is-hidden" href="https://noiz.ai/create/music" target="_blank" rel="noopener" data-outbound-source="result_queue_link" data-outbound-destination="noiz.ai">
-            <span id="queueText">Open noiz music — skip the queue</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg>
-          </a>
         </div>
 
         <div id="resultsStack" class="results-stack is-hidden" aria-live="polite"></div>
@@ -107,7 +104,7 @@
             <label id="coverDropzone" class="cover-dropzone" for="coverFileInput" tabindex="0">
               <span class="upload-disc" aria-hidden="true"><span>♪</span></span>
               <strong id="coverDropTitle">Drop your song here</strong>
-              <span id="coverDropHint">or click to upload · MP3, WAV, FLAC, M4A, AAC, OGG · up to 100 MB</span>
+              <span id="coverDropHint">or click to upload · MP3, WAV, FLAC, M4A, AAC, OGG · up to 40 MB</span>
               <span id="coverChooseFile" class="choose-file">Choose audio</span>
               <button id="coverDemoButton" class="demo-audio-button is-hidden" type="button">Use demo song</button>
             </label>

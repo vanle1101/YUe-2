@@ -5,7 +5,7 @@
   const params = new URLSearchParams(location.search);
   const mockMode = params.get('mock') === '1';
   const LYRICS_USAGE_KEY = 'meet-yue2-cover-lyrics-recognition-v1';
-  const MAX_USES = 3;
+  const MAX_USES = 999999;
   const allowedExtensions = new Set(['mp3', 'wav', 'flac', 'm4a', 'aac', 'ogg']);
   const state = {
     mode: 'text',
@@ -31,7 +31,7 @@
     en: {
       textMode: 'Text to Song', coverMode: 'Cover', kicker: 'AI cover studio',
       uploadTitle: 'Turn any song into your own cover', uploadIntro: 'Upload a song, recognize its lyrics, and reshape it with Yue2.',
-      dropTitle: 'Drop your song here', dropHint: 'or click to upload · MP3, WAV, FLAC, M4A, AAC, OGG · up to 100 MB', choose: 'Choose audio', demo: 'Use demo song',
+      dropTitle: 'Drop your song here', dropHint: 'or click to upload · MP3, WAV, FLAC, M4A, AAC, OGG · up to 40 MB', choose: 'Choose audio', demo: 'Use demo song',
       original: 'Original song', ready: 'Ready', replace: 'Replace', remove: 'Remove', playOriginal: 'Play original', pauseOriginal: 'Pause original',
       lyrics: 'Lyrics', lyricsHint: 'Paste lyrics or recognize them from the song', recognize: 'Recognize lyrics', recognizing: 'Recognizing…',
       lyricsPlaceholder: 'Lyrics will appear here after recognition, or you can write your own.',
@@ -41,7 +41,7 @@
       melody: 'Reference melody', close: 'Close', closeHint: 'Keep melody & structure', free: 'Free', freeHint: 'Keep main melody only',
       privacy: 'Your upload is used only to create this cover.', generate: 'Generate cover', generating: 'Creating your cover…',
       remaining: '{count} left', getMore: 'Get more', goNoiz: 'Go to noiz music',
-      invalidFile: 'Please choose an MP3, WAV, FLAC, M4A, AAC, or OGG file.', tooLarge: 'The audio file must be 100 MB or smaller.',
+      invalidFile: 'Please choose an MP3, WAV, FLAC, M4A, AAC, or OGG file.', tooLarge: 'The audio file must be 40 MB or smaller.',
       uploading: 'Uploading audio…', uploadFailed: 'Audio upload failed. Please try again.',
       uploadFirst: 'Upload an audio file first.', lyricsRequired: 'Add or recognize lyrics first.', styleRequired: 'Add a cover description or choose a style.',
       lyricsLimit: 'All three lyric recognitions have been used.', coverLimit: 'All three generations across Create and Cover have been used.',
@@ -57,7 +57,7 @@
     zh: {
       textMode: 'Tạo nhạc từ chữ', coverMode: 'Chế độ Cover', kicker: 'Studio Cover AI',
       uploadTitle: 'Biến bất kỳ bài hát nào thành bản cover mới', uploadIntro: 'Tải bài hát lên, tách lời tự động và phối lại phong cách bằng Yue2.',
-      dropTitle: 'Kéo thả bài hát vào đây', dropHint: 'hoặc bấm để tải lên · Hỗ trợ MP3, WAV, FLAC, M4A, AAC, OGG · Tối đa 100 MB', choose: 'Chọn tệp âm thanh', demo: 'Dùng bài mẫu',
+      dropTitle: 'Kéo thả bài hát vào đây', dropHint: 'hoặc bấm để tải lên · Hỗ trợ MP3, WAV, FLAC, M4A, AAC, OGG · Tối đa 40 MB', choose: 'Chọn tệp âm thanh', demo: 'Dùng bài mẫu',
       original: 'Bài gốc', ready: 'Sẵn sàng', replace: 'Đổi bài', remove: 'Xóa', playOriginal: 'Phát bài gốc', pauseOriginal: 'Tạm dừng bài gốc',
       lyrics: 'Lời bài hát', lyricsHint: 'Dán lời hoặc bóc lời từ bài gốc', recognize: 'Nhận diện lời', recognizing: 'Đang nhận diện…',
       lyricsPlaceholder: 'Lời nhận diện sẽ hiện ở đây, hoặc bạn có thể nhập trực tiếp.',
@@ -67,7 +67,7 @@
       melody: 'Độ bám giai điệu', close: 'Sát bản gốc', closeHint: 'Giữ giai điệu & cấu trúc', free: 'Tự do', freeHint: 'Chỉ giữ giai điệu chính',
       privacy: 'Tệp tải lên chỉ dùng cho bản cover này.', generate: 'Tạo bản cover', generating: 'Đang tạo bản cover…',
       remaining: 'Còn {count} lượt', getMore: 'Nhận thêm lượt', goNoiz: 'Mở noiz music',
-      invalidFile: 'Vui lòng chọn tệp MP3, WAV, FLAC, M4A, AAC hoặc OGG.', tooLarge: 'Tệp âm thanh phải nhỏ hơn 100 MB.',
+      invalidFile: 'Vui lòng chọn tệp MP3, WAV, FLAC, M4A, AAC hoặc OGG.', tooLarge: 'Tệp âm thanh phải nhỏ hơn 40 MB.',
       uploading: 'Đang tải âm thanh lên…', uploadFailed: 'Tải âm thanh thất bại, thử lại nhé.',
       uploadFirst: 'Vui lòng tải tệp âm thanh lên trước.', lyricsRequired: 'Vui lòng nhập hoặc nhận diện lời bài hát.', styleRequired: 'Vui lòng nhập mô tả hoặc chọn thể loại.',
       lyricsLimit: 'Đã hết 3 lượt nhận diện lời.', coverLimit: 'Đã hết 3 lượt dùng thử chung cho Create và Cover.',
@@ -200,7 +200,7 @@
     $('textModeTab').setAttribute('aria-selected', String(!cover));
     $('coverModeTab').setAttribute('aria-selected', String(cover));
     if (cover) {
-      $('queueLink').classList.toggle('is-hidden', !state.historyView);
+      $('queueLink')?.classList.toggle('is-hidden', !state.historyView);
       $('backButton').classList.toggle('is-hidden', !state.historyView);
       document.body.classList.toggle('has-results', state.historyView);
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -221,7 +221,7 @@
       state.sourceAudio = null;
       state.historySource = false;
     }
-    $('queueLink').classList.add('is-hidden');
+    $('queueLink')?.classList.add('is-hidden');
     $('backButton').classList.add('is-hidden');
     if (state.file) {
       $('coverUploadPanel').classList.add('is-hidden');
@@ -251,7 +251,7 @@
     $('coverModeTab').classList.remove('is-active');
     $('textModeTab').setAttribute('aria-selected', 'true');
     $('coverModeTab').setAttribute('aria-selected', 'false');
-    $('queueLink').classList.add('is-hidden');
+    $('queueLink')?.classList.add('is-hidden');
     $('backButton').classList.add('is-hidden');
   }
 
@@ -322,7 +322,7 @@
   async function selectFile(file, { demo = false, source } = {}) {
     const extension = String(file?.name || '').split('.').pop().toLowerCase();
     if (!demo && !allowedExtensions.has(extension)) return toast(t('invalidFile'));
-    if (!demo && file.size > 100 * 1024 * 1024) return toast(t('tooLarge'));
+    if (!demo && file.size > 40 * 1024 * 1024) return toast(t('tooLarge'));
     const dropzone = $('coverDropzone');
     dropzone.classList.add('is-uploading');
     $('coverDropTitle').textContent = t('uploading');
@@ -484,10 +484,6 @@
 
   async function recognizeLyrics() {
     if (!state.file) return toast(t('uploadFirst'));
-    if (state.lyricsUsed >= MAX_USES) {
-      track('quota_exhausted', { status: 'blocked', properties: { limit_type: 'lyrics_lifetime', remaining: 0 } });
-      return toast(t('lyricsLimit'));
-    }
     if (state.recognizing) return;
     const startedAt = Date.now();
     state.recognizing = true;
@@ -507,7 +503,7 @@
         const result = await api('/api/cover/recognize-lyrics', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Idempotency-Key': `lyrics-${Date.now()}-${crypto.randomUUID()}` },
-          body: JSON.stringify({ source_id: state.sourceId }),
+          body: JSON.stringify({ source_id: state.sourceId, language: language() === 'zh' ? 'vi' : 'auto' }),
         });
         if (!result.has_vocals || !result.lyrics) throw new Error(language() === 'zh' ? 'Không phát hiện được lời hát rõ ràng.' : 'No recognizable vocal lyrics were found.');
         lyrics = result.lyrics;
@@ -747,12 +743,6 @@
   }
 
   async function generateCover() {
-    if (state.used >= MAX_USES) {
-      track('quota_exhausted', { status: 'blocked', properties: { limit_type: 'cover_lifetime', remaining: 0 } });
-      window.yueAnalytics?.trackOutbound('quota_redirect_cover', 'noiz.ai', 'cover');
-      location.href = window.yueAnalytics?.outboundUrl('quota_redirect_cover') || 'https://noiz.ai/create/music';
-      return;
-    }
     if (!state.file) return toast(t('uploadFirst'));
     if (!$('coverLyrics').value.trim()) return toast(t('lyricsRequired'));
     if (!$('coverDescription').value.trim() && !state.styles.size && !$('coverCustomStyle').value.trim()) return toast(t('styleRequired'));

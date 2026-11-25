@@ -177,6 +177,14 @@ async def upload_cover_source(request: Request) -> JSONResponse:
     return JSONResponse({"source_id": source_id})
 
 
+@app.get("/api/cover/sources/{source_id}/audio")
+async def get_cover_source_audio(source_id: str) -> FileResponse:
+    src_path = SOURCES.get(source_id)
+    if not src_path or not src_path.exists():
+        raise HTTPException(status_code=404, detail="Source not found")
+    return FileResponse(src_path)
+
+
 @app.post("/api/cover/recognize-lyrics")
 async def recognize_lyrics(request: Request) -> JSONResponse:
     body = await request.json()
@@ -202,17 +210,37 @@ async def recognize_lyrics(request: Request) -> JSONResponse:
 async def create_cover_job(request: Request) -> JSONResponse:
     payload = await request.json()
     job_id = f"cover_{uuid.uuid4().hex[:12]}"
+    source_id = payload.get("source_id", "")
+    src_path = SOURCES.get(source_id)
     job = {
         "id": job_id,
+        "created_at": time.time(),
         "status": "queued",
         "stage": "score_pending",
         "remaining": UNLIMITED_QUOTA,
         "request": payload,
+        "source": {
+            "source_id": source_id,
+            "audio_url": f"/api/cover/sources/{source_id}/audio" if src_path else None,
+            "filename": src_path.name if src_path else "source.audio",
+            "size_bytes": src_path.stat().st_size if src_path and src_path.exists() else 0,
+        },
         "candidates": [],
     }
     COVER_JOBS[job_id] = job
     asyncio.create_task(_run_cover_job(job_id, payload))
     return JSONResponse(job)
+
+
+@app.get("/api/cover/history")
+async def get_cover_history() -> JSONResponse:
+    items = sorted(COVER_JOBS.values(), key=lambda j: j.get("created_at", 0), reverse=True)
+    return JSONResponse({"items": items[:20]})
+
+
+@app.post("/api/analytics/events")
+async def analytics_events() -> JSONResponse:
+    return JSONResponse({"ok": True})
 
 
 @app.get("/api/cover/jobs/{job_id}")
