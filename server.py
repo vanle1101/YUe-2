@@ -1,10 +1,16 @@
 import asyncio
+import base64
+import json
 import math
 import os
 import re
+import shutil
 import struct
 import subprocess
+import tempfile
 import time
+import urllib.error
+import urllib.request
 import uuid
 import wave
 from pathlib import Path
@@ -199,13 +205,72 @@ async def get_cover_source_audio(source_id: str) -> FileResponse:
     return FileResponse(src_path)
 
 
+def _gemini_transcribe_sync(src_path: Path, language: str, api_key: str) -> str | None:
+    ffmpeg = shutil.which("ffmpeg")
+    if not ffmpeg:
+        return None
+    with tempfile.TemporaryDirectory() as td:
+        mp3_path = Path(td) / "mono.mp3"
+        proc = subprocess.run(
+            [ffmpeg, "-y", "-nostdin", "-v", "error", "-i", str(src_path),
+             "-t", "720", "-ac", "1", "-ar", "16000", "-b:a", "64k", "-f", "mp3", str(mp3_path)],
+            capture_output=True, timeout=90,
+        )
+        if proc.returncode != 0 or not mp3_path.is_file():
+            return None
+        b64 = base64.b64encode(mp3_path.read_bytes()).decode("ascii")
+    lang_hint = {"vi": "Vietnamese with accurate diacritics", "en": "English"}.get(language, "its original sung language")
+    prompt = (
+        f"Transcribe ONLY the sung lyrics accurately in {lang_hint}. "
+        "Ignore crowd noise/banter. Format with [Verse 1], [Chorus 1], [Bridge 1]. "
+        "Return ONLY the lyrics, or NO_VOCALS if none."
+    )
+    payload = json.dumps({
+        "contents": [{"role": "user", "parts": [
+            {"inline_data": {"mime_type": "audio/mp3", "data": b64}},
+            {"text": prompt},
+        ]}],
+        "generationConfig": {"temperature": 0.0},
+    }).encode("utf-8")
+    models = [os.getenv("YUE2_GEMINI_API_MODEL", "gemini-3-flash-preview"), "gemini-3.6-flash", "gemini-flash-lite-latest"]
+    seen = []
+    for model_name in models:
+        if not model_name or model_name in seen:
+            continue
+        seen.append(model_name)
+        req = urllib.request.Request(
+            f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent",
+            data=payload,
+            headers={"Content-Type": "application/json", "x-goog-api-key": api_key},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=90) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            parts = ((data.get("candidates") or [{}])[0].get("content") or {}).get("parts") or []
+            text = "".join(p.get("text", "") for p in parts if isinstance(p, dict) and not p.get("thought")).strip()
+            text = re.sub(r"^```[a-zA-Z0-9_-]*\s*|\s*```$", "", text).strip()
+            if text:
+                return "" if text.upper() == "NO_VOCALS" else text
+        except (urllib.error.URLError, TimeoutError, ValueError, KeyError):
+            continue
+    return None
+
+
 @app.post("/api/cover/recognize-lyrics")
 async def recognize_lyrics(request: Request) -> JSONResponse:
     body = await request.json()
     source_id = body.get("source_id", "")
+    language = str(body.get("language") or "auto")
     src_path = SOURCES.get(source_id)
     if not src_path or not src_path.exists():
         raise HTTPException(status_code=404, detail="Source not found")
+
+    gemini_key = (os.getenv("YUE2_GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY") or "").strip()
+    if gemini_key:
+        lyrics = await asyncio.to_thread(_gemini_transcribe_sync, src_path, language, gemini_key)
+        if lyrics is not None:
+            return JSONResponse({"has_vocals": bool(lyrics), "lyrics": lyrics, "remaining": UNLIMITED_QUOTA})
 
     if WHISPER_CMD:
         cmd = WHISPER_CMD.format(in_path=str(src_path))
@@ -215,7 +280,7 @@ async def recognize_lyrics(request: Request) -> JSONResponse:
 
     return JSONResponse({
         "has_vocals": True,
-        "lyrics": "[Verse]\n(Local mode: set WHISPER_CMD to auto-transcribe vocals)\n",
+        "lyrics": "[Verse]\n(Local mode: set YUE2_GEMINI_API_KEY or WHISPER_CMD to auto-transcribe vocals)\n",
         "remaining": UNLIMITED_QUOTA,
     })
 
