@@ -131,8 +131,8 @@
   function updateQuota() {
     const coverLeft = Math.max(0, MAX_USES - state.used);
     const lyricsLeft = Math.max(0, MAX_USES - state.lyricsUsed);
-    $('recognizeRemaining').textContent = t('remaining', { count: lyricsLeft });
-    $('coverGenerateRemaining').textContent = coverLeft ? t('remaining', { count: coverLeft }) : t('goNoiz');
+    if ($('recognizeRemaining')) $('recognizeRemaining').textContent = t('remaining', { count: lyricsLeft });
+    if ($('coverGenerateRemaining')) $('coverGenerateRemaining').textContent = coverLeft ? t('remaining', { count: coverLeft }) : t('goNoiz');
     $('coverGenerateText').textContent = coverLeft ? (state.generating ? t('generating') : t('generate')) : t('getMore');
     $('coverGenerateButton').classList.toggle('is-upgrade', coverLeft === 0);
     $('coverGenerateButton').classList.toggle('is-submitting', state.generating);
