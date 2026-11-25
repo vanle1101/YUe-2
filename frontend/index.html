@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>Meet Yue2</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=20260921-m4a-api-1" />
+    <link rel="stylesheet" href="./styles.css?v=20260923-results-4" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="page-header">
+        <div class="header-utilities">
+          <button id="languageToggle" class="language-toggle" type="button" data-language="en" aria-label="Switch to Chinese">
+            <span class="lang-zh">中</span><i aria-hidden="true"></i><span class="lang-en">EN</span>
+          </button>
+          <button id="historyButton" class="history-button" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v6h6M12 7v5l3 2" /></svg>
+            <span id="historyLabel">History</span>
+          </button>
+        </div>
+        <div class="headline-row">
+          <a class="brand" href="./" aria-label="Van Le × YuE2"><span class="noiz-mark vanle-mark">Van Le</span><span class="brand-x" aria-hidden="true">×</span><img class="yue2-mark" src="./brand-logo.png?v=20260922-yue2-b" alt="YuE2" width="2100" height="749" /></a>
+        </div>
+      </header>
+
+      <!-- every cover is a song made with Yue2; tap one and the bar at the bottom plays it -->
+      <div class="cover-strip" id="coverStrip" role="region" aria-label="Example songs, tap to play">
+        <div class="cover-strip__track" id="coverStripTrack"></div>
+      </div>
+
+      <main>
+        <nav class="mode-tabs" aria-label="Creation mode">
+          <button id="textModeTab" class="mode-tab is-active" type="button" aria-selected="true">
+            <span class="mode-tab-icon" aria-hidden="true">✦</span>
+            <span id="textModeLabel">Text to Song</span>
+          </button>
+          <button id="coverModeTab" class="mode-tab" type="button" aria-selected="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l10-2v13M9 9l10-2M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm10-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" /></svg>
+            <span id="coverModeLabel">Cover</span>
+          </button>
+        </nav>
+
+        <div class="result-nav">
+          <button id="backButton" class="back-button is-hidden" type="button" aria-label="Back">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg>
+            <span id="backLabel">Back</span>
+          </button>
+          <a id="queueLink" class="queue-link is-hidden" href="https://noiz.ai/create/music" target="_blank" rel="noopener" data-outbound-source="result_queue_link" data-outbound-destination="noiz.ai">
+            <span id="queueText">Open noiz music — skip the queue</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg>
+          </a>
+        </div>
+
+        <div id="resultsStack" class="results-stack is-hidden" aria-live="polite"></div>
+
+        <section id="composer" class="composer">
+          <button id="collapsedComposer" class="collapse-preview" type="button" aria-label="Expand composer">
+            <span class="compact-spark" aria-hidden="true">✦</span>
+            <span id="compactPrompt" class="compact-prompt">Create another song</span>
+            <span id="compactStatus" class="compact-status">Expand composer</span>
+          </button>
+
+          <div class="composer-body">
+            <div class="field-block prompt-block">
+              <label for="promptInput"><strong id="promptTitle">Song description</strong><span id="promptHint">Theme, scene and expression</span></label>
+              <textarea id="promptInput" maxlength="3000" placeholder="A cyberpunk synth-pop song at 120 BPM with a driving beat and female vocals."></textarea>
+              <span id="promptCount" class="counter">0/3000</span>
+            </div>
+
+            <div id="lyricsBlock" class="field-block lyrics-block">
+              <label for="lyricsInput"><strong id="lyricsFieldTitle">Lyrics</strong><span id="lyricsHint">Paste or write your own</span></label>
+              <textarea id="lyricsInput" maxlength="5000" placeholder="[Verse]&#10;Neon lights are fading down the avenue&#10;Every shadow leads me back to you&#10;&#10;[Chorus]&#10;Even when the night is closing in&#10;I will keep a spark alive within"></textarea>
+              <span id="lyricsCount" class="counter">0/5000</span>
+            </div>
+
+            <div class="composer-toolbar">
+              <div class="options">
+                <button id="voiceButton" class="option-button" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3ZM5 11v1a7 7 0 0 0 14 0v-1M12 19v3M8 22h8" /></svg>
+                  <span id="voiceLabel">Voice</span>
+                </button>
+                <button id="instrumentalButton" class="instrumental-switch" type="button" role="switch" aria-checked="false">
+                  <span id="instrumentalLabel">Instrumental</span>
+                  <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+                </button>
+                <button id="styleButton" class="option-button" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M7 14v6" /></svg>
+                  <span id="styleLabel">Style</span>
+                </button>
+              </div>
+              <button id="generateButton" class="generate-button" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m13 2-8 12h7l-1 8 8-12h-7z" /></svg>
+                <span class="generate-copy"><strong>Generate</strong></span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section id="coverRoot" class="cover-root is-hidden" aria-live="polite">
+          <input id="coverFileInput" class="visually-hidden-file-input" type="file" accept="audio/mpeg,audio/wav,audio/x-wav,audio/flac,audio/mp4,audio/aac,audio/ogg,.mp3,.wav,.flac,.m4a,.aac,.ogg" />
+          <section id="coverUploadPanel" class="cover-upload-panel">
+            <div class="cover-kicker"><span aria-hidden="true">♫</span><span id="coverKicker">AI cover studio</span></div>
+            <h1 id="coverUploadTitle">Turn any song into your own cover</h1>
+            <p id="coverUploadIntro">Upload a song, recognize its lyrics, and reshape it with Yue2.</p>
+            <label id="coverDropzone" class="cover-dropzone" for="coverFileInput" tabindex="0">
+              <span class="upload-disc" aria-hidden="true"><span>♪</span></span>
+              <strong id="coverDropTitle">Drop your song here</strong>
+              <span id="coverDropHint">or click to upload · MP3, WAV, FLAC, M4A, AAC, OGG · up to 100 MB</span>
+              <span id="coverChooseFile" class="choose-file">Choose audio</span>
+              <button id="coverDemoButton" class="demo-audio-button is-hidden" type="button">Use demo song</button>
+            </label>
+          </section>
+
+          <div id="coverWorkspace" class="cover-workspace is-hidden">
+            <div id="coverResults" class="cover-results"></div>
+            <section class="cover-editor">
+              <div id="coverSourceCard" class="source-audio-card">
+                <div class="source-art" aria-hidden="true"><span>♪</span></div>
+                <div class="source-meta"><small id="coverOriginalLabel">Original song</small><strong id="coverFileName">song.mp3</strong><span id="coverFileMeta">Ready</span></div>
+                <button id="coverSourcePlay" class="source-play" type="button" aria-label="Play original"><span>▶</span></button>
+                <div class="source-actions">
+                  <button id="coverReplaceFile" class="replace-file" type="button">Replace</button>
+                  <button id="coverRemoveFile" class="remove-file" type="button">Remove</button>
+                </div>
+              </div>
+              <div id="coverHistorySourceUpload" class="history-source-upload is-hidden">
+                <div class="source-art" aria-hidden="true"><span>♪</span></div>
+                <div class="source-meta"><small id="coverMissingSourceLabel">Original song</small><strong id="coverMissingSourceTitle">Original audio is no longer available</strong><span id="coverMissingSourceHint">Upload it again to continue editing this cover.</span></div>
+                <button id="coverHistoryUploadButton" class="replace-file" type="button">Upload original</button>
+              </div>
+
+              <div class="cover-form-grid">
+                <div class="cover-form-main">
+                  <div class="cover-field cover-lyrics-field">
+                    <div class="cover-label-row">
+                      <label for="coverLyrics"><strong id="coverLyricsTitle">Lyrics</strong><span id="coverLyricsHint">Paste lyrics or recognize them from the song</span></label>
+                      <button id="recognizeLyricsButton" class="recognize-button" type="button"><span aria-hidden="true">✦</span><span id="recognizeLyricsText">Recognize lyrics</span><small id="recognizeRemaining">3 left</small></button>
+                    </div>
+                    <textarea id="coverLyrics" maxlength="5000" placeholder="Lyrics will appear here after recognition, or you can write your own."></textarea>
+                    <span id="coverLyricsCount" class="counter">0/5000</span>
+                  </div>
+                  <div class="cover-field cover-description-field">
+                    <label for="coverDescription"><strong id="coverDescriptionTitle">Cover description</strong><span id="coverDescriptionHint">Describe the new mood and arrangement</span></label>
+                    <textarea id="coverDescription" maxlength="3000" placeholder="Warm indie pop, intimate female vocal, soft acoustic guitar and gentle drums."></textarea>
+                    <span id="coverDescriptionCount" class="counter">0/3000</span>
+                  </div>
+                </div>
+
+                <aside class="cover-settings">
+                  <div class="cover-setting"><span id="coverVoiceTitle">Voice</span><div class="segmented" data-cover-group="voice"><button class="is-active" type="button" data-value="auto">Auto</button><button type="button" data-value="female">Female</button><button type="button" data-value="male">Male</button></div></div>
+                  <div class="cover-setting"><span id="coverStyleTitle">Style</span><div id="coverStyleChoices" class="cover-style-choices"><button type="button" data-value="Pop">Pop</button><button type="button" data-value="Rock">Rock</button><button type="button" data-value="R&B">R&amp;B</button><button type="button" data-value="Electronic">Electronic</button></div><input id="coverCustomStyle" maxlength="1000" placeholder="Add a custom style" /></div>
+                  <div class="cover-setting"><span id="coverStrengthTitle">Reference melody</span><div class="segmented strength" data-cover-group="strength"><button class="is-active" type="button" data-value="high"><strong id="coverStrengthClose">Close</strong><small id="coverStrengthCloseHint">Keep melody &amp; structure</small></button><button type="button" data-value="main_melody"><strong id="coverStrengthFree">Free</strong><small id="coverStrengthFreeHint">Keep main melody only</small></button></div></div>
+                </aside>
+              </div>
+
+              <div class="cover-actions">
+                <p id="coverPrivacy">Your upload is used only to create this cover.</p>
+                <button id="coverGenerateButton" class="generate-button cover-generate" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m13 2-8 12h7l-1 8 8-12h-7z" /></svg>
+                  <span class="generate-copy"><strong id="coverGenerateText">Generate cover</strong><small id="coverGenerateRemaining">3 left</small></span>
+                </button>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="pickerBackdrop" class="picker-backdrop is-hidden" aria-hidden="true"></div>
+    <section id="voicePicker" class="picker is-hidden" aria-label="Choose voice type">
+      <div class="picker-head"><strong id="voicePickerTitle">Voice</strong><button class="picker-close" type="button" aria-label="Close">×</button></div>
+      <div class="choice-grid" data-choice-group="voice">
+        <button class="choice is-active" data-value="auto" type="button">Default</button>
+        <button class="choice" data-value="female" type="button">Female</button>
+        <button class="choice" data-value="male" type="button">Male</button>
+      </div>
+    </section>
+    <section id="stylePicker" class="picker style-picker is-hidden" aria-label="Choose style">
+      <div class="picker-head"><strong id="stylePickerTitle">Style</strong><button class="picker-close" type="button" aria-label="Close">×</button></div>
+      <div class="choice-grid" data-choice-group="style">
+        <button class="choice" data-value="流行" type="button">Pop</button><button class="choice" data-value="轻松" type="button">Chill</button>
+        <button class="choice" data-value="动感" type="button">Energetic</button><button class="choice" data-value="情绪" type="button">Emotional</button>
+        <button class="choice" data-value="摇滚" type="button">Rock</button><button class="choice" data-value="电子" type="button">Electronic</button>
+        <button class="choice" data-value="嘻哈" type="button">Hip-hop</button><button class="choice" data-value="Lo-Fi" type="button">Lo-Fi</button>
+        <button class="choice" data-value="影视配乐" type="button">Soundtrack</button><button class="choice" data-value="爵士" type="button">Jazz</button>
+        <button class="choice" data-value="古典" type="button">Classical</button><button class="choice" data-value="氛围" type="button">Ambient</button>
+      </div>
+      <input id="customStyle" type="text" maxlength="80" placeholder="Custom style…" />
+    </section>
+    <section id="fillConfirm" class="picker confirm-dialog is-hidden" role="alertdialog" aria-modal="true" aria-labelledby="fillConfirmTitle" aria-describedby="fillConfirmText">
+      <div class="picker-head"><strong id="fillConfirmTitle">Replace what you wrote?</strong><button class="picker-close" type="button" aria-label="Close">×</button></div>
+      <p id="fillConfirmText"></p>
+      <div class="confirm-actions">
+        <button id="fillConfirmCancel" class="confirm-cancel" type="button">Cancel</button>
+        <button id="fillConfirmOk" class="confirm-ok" type="button">Replace</button>
+      </div>
+    </section>
+
+    <div id="historyOverlay" class="drawer-overlay is-hidden" aria-hidden="true">
+      <aside class="history-drawer" role="dialog" aria-modal="true" aria-labelledby="historyTitle">
+        <div class="drawer-head"><div><h2 id="historyTitle">History</h2><p id="historySubtitle">Saved in this browser only</p></div><button id="closeHistory" type="button" aria-label="Close">×</button></div>
+        <div id="historyList" class="history-list"></div>
+      </aside>
+    </div>
+
+    <div id="toast" class="toast is-hidden" role="status"></div>
+
+    <div id="playerBar" class="player-bar" role="region" aria-label="Now playing" aria-hidden="true" inert>
+      <div class="player-bar__inner">
+        <button id="playerDisc" class="player-disc" type="button" aria-label="Play"><span class="strip-disc"><img id="playerCover" alt="" width="256" height="256" /></span></button>
+        <div class="player-meta"><strong id="playerTitle"></strong><span id="playerGenre"></span></div>
+        <div class="player-controls">
+          <button id="playerPrev" class="player-skip" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M18 6 9 12l9 6z" /></svg></button>
+          <button id="playerToggle" class="player-play" type="button" aria-label="Play"><svg class="ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z" /></svg><svg class="ico-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zm6 0h4v14h-4z" /></svg></button>
+          <button id="playerNext" class="player-skip" type="button" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M6 6l9 6-9 6z" /></svg></button>
+        </div>
+        <div class="player-progress">
+          <span id="playerTime" class="player-time">0:00</span>
+          <div id="playerTrack" class="player-track" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i id="playerFill"></i></div>
+          <span id="playerDuration" class="player-time">0:00</span>
+        </div>
+        <div class="player-fills">
+          <button id="playerUse" class="player-use" type="button"><span class="player-use-icon" aria-hidden="true">✦</span><span id="playerUseText">Make similar</span></button>
+          <button id="playerCoverUse" class="player-use player-use--cover" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l10-2v13M9 9l10-2M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm10-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" /></svg><span id="playerCoverUseText">Cover it</span></button>
+        </div>
+        <button id="playerClose" class="player-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg></button>
+      </div>
+    </div>
+
+    <script src="./analytics.js?v=20261119-click-ids"></script>
+    <script src="./quota.js?v=20261120-shared-3"></script>
+    <script src="./app.js?v=20261120-shared-3"></script>
+    <script src="./cover.js?v=20261120-shared-3"></script>
+    <script src="./showcase-data.js?v=20260923-showcase-1"></script>
+    <script src="./showcase.js?v=20260923-cover-fill-1"></script>
+  </body>
+</html>
