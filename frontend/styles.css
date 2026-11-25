@@ -120,6 +120,9 @@ body.cover-mode main { margin-top: 34px; }
 .cover-description-field { min-height: 132px; }
 .cover-description-field textarea { height: 68px; }
 .cover-label-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.recognize-controls { display: flex; align-items: center; gap: 6px; flex: 0 0 auto; }
+.lyrics-lang-select { min-height: 32px; padding: 4px 10px; border: 1px solid #e5e3e8; border-radius: 999px; background: #fff; color: #504e56; font-size: 12px; outline: 0; cursor: pointer; }
+.lyrics-lang-select:focus { border-color: #ff9aa8; }
 .recognize-button { flex: 0 0 auto; min-height: 32px; padding: 4px 10px; display: flex; align-items: center; gap: 6px; border: 1px solid #ffd0d7; border-radius: 999px; background: #fff1f3; color: #d92a44; font-size: 12px; cursor: pointer; }
 .recognize-button small { padding-left: 6px; border-left: 1px solid #ffc0ca; color: #b8727d; font-size: 10px; }
 .recognize-button.is-loading { cursor: wait; opacity: .7; }

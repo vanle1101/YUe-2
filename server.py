@@ -1,6 +1,7 @@
 import asyncio
 import math
 import os
+import re
 import struct
 import subprocess
 import time
@@ -12,6 +13,18 @@ from typing import Any
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+
+VI_CHAR_RE = re.compile(
+    r"[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]",
+    re.I,
+)
+
+
+def _prepare_style(style: str, lyrics: str, default: str = "") -> str:
+    cleaned = style.strip() or default
+    if (VI_CHAR_RE.search(lyrics) or VI_CHAR_RE.search(cleaned)) and "vietnamese" not in cleaned.lower():
+        cleaned = f"Vietnamese, {cleaned}" if cleaned else "Vietnamese"
+    return cleaned[:2000].strip()
 
 BASE_DIR = Path(__file__).resolve().parent
 FRONTEND_DIR = BASE_DIR / "frontend"
@@ -136,6 +149,7 @@ async def get_quota() -> JSONResponse:
 @app.post("/api/jobs")
 async def create_job(request: Request) -> JSONResponse:
     payload = await request.json()
+    payload["style"] = _prepare_style(str(payload.get("style") or ""), str(payload.get("lyrics") or ""))
     job_id = f"job_{uuid.uuid4().hex[:12]}"
     base_seed = int(payload.get("seed") or 1000)
     job = {
@@ -209,6 +223,8 @@ async def recognize_lyrics(request: Request) -> JSONResponse:
 @app.post("/api/cover/jobs")
 async def create_cover_job(request: Request) -> JSONResponse:
     payload = await request.json()
+    combined = ", ".join(p for p in (str(payload.get("music_description") or "").strip(), str(payload.get("style") or "").strip()) if p)
+    payload["style"] = _prepare_style(combined, str(payload.get("lyrics") or ""), default="pop")
     job_id = f"cover_{uuid.uuid4().hex[:12]}"
     source_id = payload.get("source_id", "")
     src_path = SOURCES.get(source_id)

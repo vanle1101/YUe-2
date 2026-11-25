@@ -45,7 +45,8 @@
       uploading: 'Uploading audio…', uploadFailed: 'Audio upload failed. Please try again.',
       uploadFirst: 'Upload an audio file first.', lyricsRequired: 'Add or recognize lyrics first.', styleRequired: 'Add a cover description or choose a style.',
       lyricsLimit: 'All three lyric recognitions have been used.', coverLimit: 'All three generations across Create and Cover have been used.',
-      recognitionDone: 'Lyrics recognized. You can edit them before generating.', recognitionFailed: 'Lyrics recognition failed. Please try again.',
+      langLabel: 'Recognition language', langAuto: 'Auto',
+      recognitionDone: 'Lyrics recognized — check and fix any misheard words before generating.', recognitionFailed: 'Lyrics recognition failed. Please try again.',
       preparing: 'Preparing the original song…', score: 'Reading melody and structure…', submit: 'Sending the arrangement to Yue2…', waiting: 'Waiting for an available GPU…', render: 'Rendering two cover versions…',
       complete: 'Cover generation complete', coverTitle: 'Your new cover', download: 'Download version {index}', play: 'Play version {index}', pause: 'Pause version {index}',
       resultLyrics: 'Lyrics', demoName: 'Midnight-demo.wav', mockOnly: 'This local preview uses demo audio and does not consume quota.',
@@ -71,7 +72,8 @@
       uploading: 'Đang tải âm thanh lên…', uploadFailed: 'Tải âm thanh thất bại, thử lại nhé.',
       uploadFirst: 'Vui lòng tải tệp âm thanh lên trước.', lyricsRequired: 'Vui lòng nhập hoặc nhận diện lời bài hát.', styleRequired: 'Vui lòng nhập mô tả hoặc chọn thể loại.',
       lyricsLimit: 'Đã hết 3 lượt nhận diện lời.', coverLimit: 'Đã hết 3 lượt dùng thử chung cho Create và Cover.',
-      recognitionDone: 'Đã nhận diện xong lời, bạn có thể sửa lại trước khi tạo.', recognitionFailed: 'Nhận diện lời thất bại, thử lại nhé.',
+      langLabel: 'Ngôn ngữ bóc lời', langAuto: 'Tự động',
+      recognitionDone: 'Đã bóc lời — hãy kiểm tra & sửa lại lỗi chính tả trước khi tạo.', recognitionFailed: 'Nhận diện lời thất bại, thử lại nhé.',
       preparing: 'Đang chuẩn bị bài gốc…', score: 'Đang phân tích giai điệu & cấu trúc…', submit: 'Đang gửi bản phối tới Yue2…', waiting: 'GPU đang bận, đang chờ lượt trống…', render: 'Đang render hai bản cover…',
       complete: 'Bản cover đã sẵn sàng', coverTitle: 'Bản cover mới của bạn', download: 'Tải bản {index}', play: 'Phát bản {index}', pause: 'Tạm dừng bản {index}',
       resultLyrics: 'Lời bài hát', demoName: 'midnight-demo.wav', mockOnly: 'Chế độ xem thử local, không trừ lượt dùng.',
@@ -177,6 +179,11 @@
     document.querySelectorAll('[data-cover-text]').forEach(node => { node.textContent = t(node.dataset.coverText); });
     if (state.file) $('coverFileMeta').textContent = `${formatBytes(state.file.size)} · ${t('ready')}`;
     $('coverSourcePlay').setAttribute('aria-label', t(state.sourceAudio && !state.sourceAudio.paused ? 'pauseOriginal' : 'playOriginal'));
+    if ($('coverLyricsLang')) {
+      $('coverLyricsLang').setAttribute('aria-label', t('langLabel'));
+      const autoOption = $('coverLyricsLang').querySelector('option[value="auto"]');
+      if (autoOption) autoOption.textContent = t('langAuto');
+    }
     updateQuota();
   }
 
@@ -500,10 +507,11 @@
           : '[Verse]\nMidnight neon falls across an old refrain\nA familiar melody is calling out my name\n\n[Chorus]\nSing it in a new voice, let the moonlight start again\nTurn the song we used to know into something new today';
         remaining = Math.max(0, MAX_USES - state.lyricsUsed - 1);
       } else {
+        const lang = $('coverLyricsLang')?.value || 'auto';
         const result = await api('/api/cover/recognize-lyrics', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Idempotency-Key': `lyrics-${Date.now()}-${crypto.randomUUID()}` },
-          body: JSON.stringify({ source_id: state.sourceId, language: language() === 'zh' ? 'vi' : 'auto' }),
+          body: JSON.stringify({ source_id: state.sourceId, language: lang }),
         });
         if (!result.has_vocals || !result.lyrics) throw new Error(language() === 'zh' ? 'Không phát hiện được lời hát rõ ràng.' : 'No recognizable vocal lyrics were found.');
         lyrics = result.lyrics;
@@ -635,6 +643,7 @@
   }
 
   function completeCard(card, candidates = null) {
+    card.setAttribute('aria-busy', 'false');
     const status = card.querySelector('.generation-status');
     status.classList.add('is-complete');
     status.querySelector('strong').dataset.coverText = 'complete';
@@ -734,9 +743,18 @@
   }
 
   async function pollCoverJob(jobId, card) {
+    let transientErrors = 0;
     for (;;) {
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      const job = await api(`/api/cover/jobs/${encodeURIComponent(jobId)}`);
+      await new Promise(resolve => setTimeout(resolve, transientErrors ? 6000 : 3000));
+      let job;
+      try {
+        job = await api(`/api/cover/jobs/${encodeURIComponent(jobId)}`);
+        transientErrors = 0;
+      } catch (error) {
+        const transient = !error.status || error.status >= 500 || error.status === 429;
+        if (!transient || ++transientErrors > 20) throw error;
+        continue;
+      }
       syncQuota(job.remaining, undefined);
       if (job.status === 'completed') return job;
       if (job.status === 'failed') {
