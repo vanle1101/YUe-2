@@ -513,7 +513,7 @@
       const response = await fetch(url, { credentials: 'same-origin' });
       if (!response.ok) throw new Error('audio fetch failed');
       const bytes = await response.arrayBuffer();
-      const playbackBlob = new Blob([bytes], { type: response.headers.get('content-type') || 'audio/flac' });
+      const playbackBlob = new Blob([bytes], { type: response.headers.get('content-type') || (url.endsWith('.mp3') ? 'audio/mpeg' : 'audio/flac') });
       const playbackUrl = URL.createObjectURL(playbackBlob);
       let peaks = fallback;
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -710,6 +710,7 @@
       canvas.setAttribute('aria-label', t('waveformProgress', { index: index + 1 }));
       waveWrap.append(canvas);
       download.href = result.audio_url;
+      download.download = `yue2-v${index + 1}.${result.audio_url.endsWith('.mp3') ? 'mp3' : 'flac'}`;
       download.target = '_blank';
       download.rel = 'noopener';
       download.dataset.generationId = jobId;
@@ -1123,7 +1124,7 @@
   }
 
   if (mockMode) state.histories = makeMockHistoryRecords();
-  bindCounter('promptInput', 'promptCount', 3000);
+  bindCounter('promptInput', 'promptCount', 1800);
   bindCounter('lyricsInput', 'lyricsCount', 5000);
   applyLanguage({ rerender: false });
   const wechatButton = $('wechatButton');

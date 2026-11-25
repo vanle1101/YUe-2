@@ -125,7 +125,7 @@
 
   function updateCounters() {
     $('coverLyricsCount').textContent = `${$('coverLyrics').value.length}/5000`;
-    $('coverDescriptionCount').textContent = `${$('coverDescription').value.length}/3000`;
+    $('coverDescriptionCount').textContent = `${$('coverDescription').value.length}/1800`;
   }
 
   function updateQuota() {
@@ -604,6 +604,12 @@
       });
     });
     audio.addEventListener('pause', setButton); audio.addEventListener('ended', setButton);
+    audio.addEventListener('error', () => {
+      row.classList.remove('is-audio-loading');
+      button.classList.remove('is-loading');
+      button.disabled = true;
+      duration.textContent = '--:--';
+    });
     button.addEventListener('click', async () => { state.players.forEach(player => { if (player.audio !== audio) player.audio.pause(); }); if (audio.paused) await audio.play(); else audio.pause(); });
     canvas.addEventListener('click', async event => {
       if (!audio.duration) return;
