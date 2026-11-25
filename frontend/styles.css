@@ -35,7 +35,6 @@ button { color: inherit; }
 .brand { display: inline-flex; align-items: center; line-height: 0; text-decoration: none; }
 .brand img { height: 36px; width: auto; display: block; }
 .brand .noiz-mark { height: 15px; }
-.brand .vanle-mark { height: auto; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: #ff5b5b; line-height: 1; }
 .brand-x { margin: 0 2px 0 10px; color: #8a8890; font-size: 18px; line-height: 1; }
 .brand:hover { opacity: .72; }
 .explore { width: max-content; height: 34px; padding: 0 16px 0 13px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; color: #765719; text-decoration: none; border: 1px solid transparent; border-radius: 999px; background: linear-gradient(105deg, rgba(255,210,85,.08), rgba(199,66,4,.07)) padding-box, linear-gradient(105deg, #fff6dd, #ffece5) border-box; font-size: 14px; font-weight: 650; white-space: nowrap; transition: transform .18s ease, box-shadow .18s ease; }

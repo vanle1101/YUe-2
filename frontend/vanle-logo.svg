@@ -1,17 +1,22 @@
-<svg width="460" height="90" viewBox="0 0 460 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Equalizer-bar 'V' matching NOIZ palette -->
-  <!-- Row 1 (y=0..18.5) -->
-  <rect x="0" y="0" width="24" height="18.5" fill="#FFAFAB"/>
-  <rect x="78" y="0" width="24" height="18.5" fill="#FFAFAB"/>
-  <!-- Row 2 (y=23.8..42.3) -->
-  <rect x="10" y="23.8" width="24" height="18.5" fill="#FF9791"/>
-  <rect x="68" y="23.8" width="24" height="18.5" fill="#FF9791"/>
-  <!-- Row 3 (y=47.6..66.1) -->
-  <rect x="22" y="47.6" width="24" height="18.5" fill="#FE7E77"/>
-  <rect x="56" y="47.6" width="24" height="18.5" fill="#FE7E77"/>
-  <!-- Row 4 (y=71.4..89.9) -->
-  <rect x="38" y="71.4" width="26" height="18.5" fill="#FE655D"/>
+<svg width="484" height="90" viewBox="0 0 484 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Equalizer-bar 'V' matching NOIZ 4-row palette -->
+  <rect x="0" y="0" width="25" height="18.5" fill="#FFAFAB"/>
+  <rect x="79" y="0" width="25" height="18.5" fill="#FFAFAB"/>
+  <rect x="11" y="23.79" width="25" height="18.5" fill="#FF9791"/>
+  <rect x="68" y="23.79" width="25" height="18.5" fill="#FF9791"/>
+  <rect x="23" y="47.58" width="25" height="18.5" fill="#FE7E77"/>
+  <rect x="56" y="47.58" width="25" height="18.5" fill="#FE7E77"/>
+  <rect x="36" y="71.37" width="32" height="18.5" fill="#FE655D"/>
 
-  <!-- Geometric bold 'ĂN LÊ' in #FE655D -->
-  <text x="114" y="84" fill="#FE655D" font-family="'Segoe UI', 'Arial Black', Arial, sans-serif" font-size="88" font-weight="900" letter-spacing="2">ĂN LÊ</text>
+  <!-- Geometric 'A' (x=122..210) -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M154 0H178L210 90H189.5L183 71H149L142.5 90H122L154 0ZM166 22L154.5 55H177.5L166 22Z" fill="#FE655D"/>
+
+  <!-- Geometric 'N' (x=228..304) -->
+  <path d="M228 0H248L285 55V0H304V90H284L247 35V90H228V0Z" fill="#FE655D"/>
+
+  <!-- Geometric 'L' (x=338..400) -->
+  <path d="M338 0H357V71H400V90H338V0Z" fill="#FE655D"/>
+
+  <!-- Geometric 'E' (x=418..484) -->
+  <path d="M418 0H484V18.5H437V36H478V54H437V71.5H484V90H418V0Z" fill="#FE655D"/>
 </svg>
